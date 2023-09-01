@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -24,7 +25,7 @@ var db *scribble.Driver
 
 func main() {
 	var err error
-	db, err = scribble.New("scribbleDB", nil)
+	db, err = scribble.New("data", nil)
 	if err != nil {
 		log.Fatal("Error creating scribble database: ", err)
 		return
@@ -36,7 +37,9 @@ func main() {
 	r.Get("/getRegister", getRegisterByFilter)
 	r.Get("/getMonthConsumption", getMonthConsumption)
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	addr := os.Getenv("ADDR")
+	log.Println("Starting server on ", addr)
+	log.Fatal(http.ListenAndServe(addr, r))
 }
 
 func addRegister(w http.ResponseWriter, r *http.Request) {

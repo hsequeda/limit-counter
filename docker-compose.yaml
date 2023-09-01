@@ -1,6 +1,6 @@
 version: '3'
 services:
-  drone_server:
+  limit-counter:
     build:
       dockerfile: Dockerfile
       context: .
