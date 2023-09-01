@@ -1,0 +1,13 @@
+version: '3'
+services:
+  drone_server:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: limit-counter
+    env_file:
+      - .env
+    volumes:
+      - "./data:/data"
+    ports:
+      - 8484:8484
